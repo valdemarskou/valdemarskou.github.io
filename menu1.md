@@ -17,8 +17,8 @@ the~~~
 ~~~
 or read the abstract below. The code for the project is found on my main GitHub page.
 
-### Abstract of the thesis
-In this thesis, we present and explore the reproducing kernel Hilbert space regression framework in the context of estimating behavior governed by physics-based partial differential equations. We implement the framework with different optimization procedures and equation examples, and evaluate our results based on how we the underlying equation behavior is captured. We present a method for transforming the reproducing kernel to naturally uphold global properties imposed by such equations, in the form of conservation laws, and demonstrate that the resulting kernel expansion estimators are more physically valid and also yield improved numerical accuracy.
+### Abstract of the thesis:
+"In this thesis, we present and explore the reproducing kernel Hilbert space regression framework in the context of estimating behavior governed by physics-based partial differential equations. We implement the framework with different optimization procedures and equation examples, and evaluate our results based on how we the underlying equation behavior is captured. We present a method for transforming the reproducing kernel to naturally uphold global properties imposed by such equations, in the form of conservation laws, and demonstrate that the resulting kernel expansion estimators are more physically valid and also yield improved numerical accuracy."
 
 # Working with code blocks
 
