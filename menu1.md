@@ -20,6 +20,40 @@ or read the abstract below. The code for the project is found on my main GitHub 
 ### Abstract of the thesis:
 "In this thesis, we present and explore the reproducing kernel Hilbert space regression framework in the context of estimating behavior governed by physics-based partial differential equations. We implement the framework with different optimization procedures and equation examples, and evaluate our results based on how we the underlying equation behavior is captured. We present a method for transforming the reproducing kernel to naturally uphold global properties imposed by such equations, in the form of conservation laws, and demonstrate that the resulting kernel expansion estimators are more physically valid and also yield improved numerical accuracy."
 
+## BSc thesis.
+I defended my BSc thesis "Qualitative Aspects of Mathematical Reaction Networks
+Using Methods from Algebra and Degree Theory" and earned the degree of Bachelor of Science in Mathematics on September 8th, 2022. You can download the~~~
+<a href="/assets/Bachelorprojekt_Final.pdf">thesis</a>
+~~~
+or read the abstract below.
+
+### Abstract of the thesis:
+"The goal of this project is to give an introduction some areas within chemical reaction network theory. The structure of reaction networks and its interplay with the associated systems of differential equations is described, and different methods using tools from both algebra and analysis are introduced and applied to several concrete networks. A large part of the project is dedicated to a given network’s capacity for multistationarity, which is an interesting property concerning the number of steady states for the associated ODE system. The method developed here involves computing the $\mathcal{C}^1$-mapping degree for a certain family of functions $\phi_c\in\mathcal{C}^1(\R^n_{\geq 0},\R^n)$. Since many of the properties of the mapping degree are nontrivial, their proofs are given in full detail. Finally, the project is wrapped up by applying all of the methods developed on several specific reaction networks."
+
+## Project in nonlinear elliptic PDE.
+I wrote a project outside course scope in regularity for nonlinear elliptic partial differential equations. Essentially it was a reading course in the book "Fully Nonlinear Elliptic Equations" by Caffarelli and Cabré, where I focused on the details of powerful covering arguments that go unmentioned in standard textbooks, as well as the details of the Krylov-Safonov Harnack inequlity. You can download the ~~~
+<a href="/assets/Bachelorprojekt_Final.pdf">report</a>
+~~~
+or read the abstract below.
+
+### Abstract of the project:
+"The purpose of this report is to establish Hölder regularity results for some fully nonlinear elliptic PDE, of second order. For this purpose, the viscosity solution is an essential construction, and we briefly introduce the appropriate function spaces that arise in this setting. We show the Harnack inequality and the Evans-Krylov theorem in this setting, and then we move on to solving the Dirichlet problem for concave equations with constant coefficients."
+
+
+## Project in spectral element method for 2D Navier Stokes.
+I wrote a small project focusing on developing a solver for the 2D Navier Stokes equation in simple periodic domains. You can download the resulting ~~~
+<a href="/assets/Numerical_Methods_assignment03_poster.pdf">poster</a>
+~~~
+or check out the [code repository](https://github.com/valdemarskou/Numerical-Methods-for-DE) on GitHub.
+
+
+## Project in trace inequalities and Stahls theorem.
+I wrote a small project about trace inequalities, where I gave a shortened proof of Stahl's theorem, which represents a class of Hermitian matrix trace formulae in terms of the Laplace transform of a positive measure. A number of interesting corollaries was also dicussed, in particular the connections with Bernstein's theorem for monotone functions. The project was mostly of theoretical interest, but but also has applications in combining data-driven methods with computational linear algebra. You can download the report~~~
+<a href="/assets/Msc_Project_2.pdf">here.</a>
+~~~
+
+<!--
+
 # Working with code blocks
 
 \toc
@@ -84,15 +118,16 @@ This can be an alternative to the description above if you'd like to only run th
 For this you can use the `\input` command specifying which language it should be tagged as:
 
 
-\input{julia}{/_assets/scripts/script1.jl} <!--_-->
+\input{julia}{/_assets/scripts/script1.jl} 
 
 
 these scripts can be run in such a way that their output is also saved to file, see `scripts/generate_results.jl` for instance, and you can then also input the results:
 
-\output{/_assets/scripts/script1.jl} <!--_-->
+\output{/_assets/scripts/script1.jl} 
 
 which is convenient if you're presenting code.
 
 **Note**: paths specification matters, see [the docs](https://franklinjl.org/code/#more_on_paths) for details.
 
 Using this approach with the `generate_results.jl` file also makes sure that all the code on your website works and that all results match the code which makes maintenance easier.
+-->

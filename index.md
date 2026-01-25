@@ -10,7 +10,7 @@ Currently I teach mathematics at the high school level (danish STX system), wher
 To contact me, send an email to: `valdemar{dot}skou{at}gmail{dot}com`. 
 
 You can also find me on [Github](https://github.com/valdemarskou/) and [LinkedIn](https://www.linkedin.com/in/valdemar-skou-knudsen-38759097/), or have a look at my ~~~
-<a href="/_assets/CV (english)-4.pdf">CV.</a>
+<a href="/assets/CV (english)-4.pdf">CV.</a>
 ~~~
 
 
