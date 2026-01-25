@@ -1,5 +1,5 @@
 +++
-title = "Code blocks"
+title = "Academic projects"
 hascode = true
 date = Date(2019, 3, 22)
 rss = "A short description of the page which would serve as **blurb** in a `RSS` feed; you can use basic markdown here but the whole description string must be a single line (not a multiline string). Like this one for instance. Keep in mind that styling is minimal in RSS so for instance don't expect maths or fancy styling to work; images should be ok though: ![](https://upload.wikimedia.org/wikipedia/en/3/32/Rick_and_Morty_opening_credits.jpeg)"
@@ -7,6 +7,18 @@ rss = "A short description of the page which would serve as **blurb** in a `RSS`
 tags = ["syntax", "code"]
 +++
 
+## MSc thesis.
+
+I defended my MSc thesis "Approximating solutions to partial differential equations with physics-informed reproducing kernels" and earned the degree of Master of Science in Mathematics on July 21st, 2025. You can download the~~~
+<a href="/assets/Msc_thesis_report.pdf">thesis,</a>
+~~~
+the~~~
+<a href="/assets/Msc_thesis_slides.pdf">defense slides,</a>
+~~~
+or read the abstract below. The code for the project is found on my main GitHub page.
+
+### Abstract of the thesis
+In this thesis, we present and explore the reproducing kernel Hilbert space regression framework in the context of estimating behavior governed by physics-based partial differential equations. We implement the framework with different optimization procedures and equation examples, and evaluate our results based on how we the underlying equation behavior is captured. We present a method for transforming the reproducing kernel to naturally uphold global properties imposed by such equations, in the form of conservation laws, and demonstrate that the resulting kernel expansion estimators are more physically valid and also yield improved numerical accuracy.
 
 # Working with code blocks
 
