@@ -1,7 +1,7 @@
 @def title = "Valdemar Skou Knudsen"
 @def tags = ["syntax", "code"]
 
-Welcome to my homepage! Here you will find some basic information about me and my interests.
+Welcome to my homepage! Here you will find some basic information about me and my interests, including my blog!
 
 I hold a Masters degree in mathematics, obtained from the [University of Copenhagen](https://www.math.ku.dk/english/). My thesis was in data-driven simulation of PDEs, with the title "Approximating solutions to partial differential equations with physics-informed reproducing kernels" (more details can be found on my projects page). I am interested in mathematical modelling with differential equations, advanced techniques for PDE simulation (including high-order Galerkin and Tau methods), as well as PDE constrained optimization and Bayesian inference. I am proficient in several programming languages, primarily Python and Julia, but I have additional experience with C++ and R.
 
