@@ -208,6 +208,44 @@ $$
 \end{aligned}
 $$
 
+Substituting this into the first equation yields
+$$
+\begin{aligned}
+  [B_1Q-B_4 B_5^{-1}B_2Q + A_1 - B_4 B_5^{-1}A_2]\bm{a} = s[Q_1 + C_1 - B_4B_5^{-1}(Q_2 + C_2)]\bm{a},
+\end{aligned}
+$$
+
+which defines a generalized eigenvalue problem of the form $M\bm{a} = sN\bm{a}$, where $M,N\in\R^{(N-1)\times(N+3)}$. To obtain a square system, the boundary conditions may be viewed as a matrix equation $D\bm{a} =\bm{0}$ (with $D\in\R^{4\times (N+3)}$), and added to the system. Writing $\bm{a_1}=(a_0,\ldots,a_N)^T$ amd $\bm{a_2} = (a_{N+1},a_{N+2})^T$ we further partition the complete system:
+$$
+\begin{aligned}
+  \left(\begin{array}{c|c}
+    M_1 & M_2 \\
+    \hline
+    D_1 & D_2
+  \end{array}\right)
+\end{aligned}
+
+\left(\begin{array}{c}
+  \bm{a_1} \\
+  \hline
+  \bm{a_2}
+\end{array}\right)
+
+= 
+s
+\begin{aligned}
+  \left(\begin{array}{c|c}
+    N_1 & N_2 \\
+    \hline
+    0 & 0
+  \end{array}\right)
+\end{aligned}\bm{a}
+$$
+
+The second block matrix equation 
+
+
+
 ### Example 1 - eigenvalue in the interior equation:
 
 
