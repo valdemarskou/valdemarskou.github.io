@@ -52,7 +52,9 @@ $$
 T_n^{(m)}(\pm 1) = (\pm 1)^{n+m}\prod_{k=0}^{m-1}\frac{n^2-k^2}{2k+1}. \label{cheb-boundary-identity}
 $$
 
+The above formulas are in terms of infinite sums, but in practice, we will work with truncated (finite) modal expansions. The 
 
+\input{julia}{/_assets/external/Julia-spectralmethod/chebyshevAlgorithms.jl}
 
 
 
@@ -66,7 +68,7 @@ v = L_4 u
 \end{cases}
 $$
 
-where the $L_i$'s are (linear) second order differential operators, and $s$ is the unknown eigenvalue. The problem may of course be formulated exclusively in terms of the eigenfunction $u$, but the factorization will be useful later. The Tau method involves truncating the Chebyshev expansions of $u$ and $v$ and taking the inner product to obtain a matrix system of equations, using the formulas for the derivative coefficients to construct finite matrices from the differential operators. Unique to the Tau method is that the boudary conditions are imposed exactly, using \eqref{cheb-boundary-identity}. For our modified method, we write:
+where the $L_i$'s are (linear) second order differential operators, and $s$ is the unknown eigenvalue. The problem may of course be formulated exclusively in terms of the eigenfunction $u$, but the factorization will be useful later. The Tau method involves truncating the Chebyshev expansions of $u$ and $v$ and taking the inner product to obtain a matrix system of equations. Unique to the Tau method is that the boudary conditions are imposed exactly, using \eqref{cheb-boundary-identity}. For our modified method, we write:
 $$
 \begin{align*}
 u(x) \approx\sum_{n=0}^{N_{int}+N_{bou}-2} a_n T_n(x),  && v(x) \approx \sum_{n=0}^{N_{int}+N_{bou}-2} b_n T_n(x),
