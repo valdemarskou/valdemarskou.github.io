@@ -14,7 +14,7 @@ tags = ["syntax", "code", "image"]
 
 The Cheyshev Tau method is a powerful tool for the numerical solution of eigenvalue boundary value problems. However, when applied to problems of order $\geq 2$, spurious eigenvalues may appear. Largely following \cite{gardner88}, we study and implement a matrix factorization technique that eliminates the spurious values, while still preserving the desired spectral convergence of the resulting numerical scheme. We apply the technique to several examples; notably one where the eigenvalue is located in the boundary. The code developed for this post is found in the following [spectral methods repository](https://github.com/valdemarskou/Julia-spectralmethod).
 
-## Chebyshev approximation:
+## Chebyshev approximation
 
 Some background on Chebyshev approxiation is required (see \cite{johnson96} for further details). The Chebyshev polynomial of order $k$ is given by
 $$
@@ -29,7 +29,7 @@ $$
 \langle f,g  \rangle = \int_{-1}^{1} f(x)g(x)(1-x^2)^{-1/2}\text{dx}.
 $$
 
-In particular we have $\langle T_i, T_j \rangle = c_i \pi\delta_{ij}/2$, where $c_i=1+\delta_{0i}$. Any smooth function $u$ and its derivatives can therefore be expanded as Chebyshev series:
+In particular we have $\langle T_i, T_j \rangle = c_i \pi\delta_{ij}/2$, where $c_i=1+\delta_{0i}$. Any smooth function $u$ and its derivatives can therefore be expanded as modal Chebyshev series:
 
 $$
 \begin{align*}
@@ -54,7 +54,9 @@ $$
 
 
 
-## Fourth order equations and the modified Tau method:
+
+
+## Fourth order equations and the modified Tau method
 
 We first consider a general fourth order equation of the form: 
 $$
@@ -215,7 +217,7 @@ $$
 \end{aligned}
 $$
 
-which defines a generalized eigenvalue problem of the form $M\bm{a} = sN\bm{a}$, where $M,N\in\R^{(N-1)\times(N+3)}$. To obtain a square system, the boundary conditions may be viewed as a matrix equation $D\bm{a} =\bm{0}$ (with $D\in\R^{4\times (N+3)}$), and added to the system. Writing $\bm{a_1}=(a_0,\ldots,a_N)^T$ amd $\bm{a_2} = (a_{N+1},a_{N+2})^T$ we further partition the complete system:
+which defines a generalized eigenvalue problem of the form $M\bm{a} = sN\bm{a}$, where $M,N\in\R^{(N-1)\times(N+3)}$. To obtain a square system, the boundary conditions may be viewed as a matrix equation $D\bm{a} =\bm{0}$ (with $D\in\R^{4\times (N+3)}$) that we concatenate to $M$. Writing $\bm{a_1}=(a_0,\ldots,a_N)^T$ amd $\bm{a_2} = (a_{N+1},a_{N+2})^T$ we further partition the complete system:
 $$
 \begin{aligned}
   \left(\begin{array}{c|c}
@@ -239,14 +241,38 @@ s
     \hline
     0 & 0
   \end{array}\right)
-\end{aligned}\bm{a}
+\end{aligned}\bm{a}.
 $$
 
-The second block matrix equation 
+From the second block matrix equation we get $\bm{a_2} = -D_2^{-1} D_1\bm{a_1}$. Substituting into the first block matrix equation yields our final generalized eigenvalue problem:
+$$
+  (M_1 - M_2 D_2^{-1} D_1)\bm{a_1} = s(N_1 - N_2 D_2^{-1} D_1)\bm{a_1},
+$$
 
+which can be solved with any appropriate eigenvalue solver. The final coefficients $\bm{a_2}$ are recovered from the previous equation. \\
 
+The tau coefficients $\bm{\tau} = (\tau_1,\tau_2)^T$ are computed from the equation:
+$$
+  B_3\bm{\hat{b}} + B_6\bm{y} + A_3\bm{a} - s(\bm{y}+C_3\bm{a})=\bm{\tau},
+$$
 
-### Example 1 - eigenvalue in the interior equation:
+Its magnitude is useful for identifying spurious eigenvalues, as well as indicating the degree of convergence of the modal coefficients $\bm{a}$. However, computing $\bm{\tau}$ also requires computing a normalized eigenvector corresponding to the eigenvalue, an increase in computational cost. Since only use the magnitude of the $\bm{\tau}$ coefficients are useful, we may simply consider the sum of its absolute values: if any one of the coefficients for a given eigenvalue have large magnitude, then that value is spurious or a poor approximation to a true eigenvalue.
+
+## Examples
+
+**Eigenvalue in the interior equation:** 
+
+Consider the fourth order equation
+$$
+\begin{aligned}
+  \begin{cases}
+    & u'''' + Ru'''-su''=0 \\
+    & u(\pm 1) = u'(\pm 1) =0
+  \end{cases}
+\end{aligned}
+$$
+
+where $R$ is a real parameter and $s$ is the eigenvalue. For this problem, $B = D_2 + R D_1$ 
 
 
 ### Example 2 - eigenvalue in the boundary condition:

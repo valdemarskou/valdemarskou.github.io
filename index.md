@@ -5,7 +5,7 @@ Welcome to my homepage! Here you will find some basic information about me and m
 
 I hold a Masters degree in mathematics, obtained from the [University of Copenhagen](https://www.math.ku.dk/english/). My thesis was in data-driven simulation of PDEs, with the title "Approximating solutions to partial differential equations with physics-informed reproducing kernels" (more details can be found on my projects page). I am interested in mathematical modelling with differential equations, advanced techniques for PDE simulation (including high-order Galerkin and Tau methods), as well as PDE constrained optimization and Bayesian inference. I am proficient in several programming languages, primarily Python and Julia, but I have additional experience with C++ and R.
 
-Currently I teach mathematics at the high school level (danish STX system), where I also supervise interdisciplinary projects. Previous I worked as a TA at the Department of Mathematical Sciences at UCPH, where I taught courses in real analysis, complex analysis, differential equations, linear algebra, and more.
+I currently teach mathematics at Nørre Gymnasium (high school level, danish STX system), where I also supervise interdisciplinary projects. Previous I worked as a TA at the Department of Mathematical Sciences at UCPH, where I taught courses in real analysis, complex analysis, differential equations, linear algebra, and more.
 
 To contact me, send an email to: `valdemar{dot}skou{at}gmail{dot}com`. 
 
