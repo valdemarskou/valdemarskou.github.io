@@ -54,6 +54,9 @@ $$
 
 The above formulas are in terms of infinite sums, but in practice, we will work with truncated (finite) modal expansions. The 
 
+
+
+
 \input{julia}{/_assets/external/Julia-spectralmethod/chebyshevAlgorithms.jl}
 
 
@@ -63,12 +66,12 @@ The above formulas are in terms of infinite sums, but in practice, we will work 
 We first consider a general fourth order equation of the form: 
 $$
 \begin{cases}
-L_1 v + L_2 u - s(v+L_3 u)=0 \\
+L_1 v + L_2 u - s(v+L_3 u)=0 & x\in\Omega \\
 v = L_4 u
 \end{cases}
 $$
 
-where the $L_i$'s are (linear) second order differential operators, and $s$ is the unknown eigenvalue. The problem may of course be formulated exclusively in terms of the eigenfunction $u$, but the factorization will be useful later. The Tau method involves truncating the Chebyshev expansions of $u$ and $v$ and taking the inner product to obtain a matrix system of equations. Unique to the Tau method is that the boudary conditions are imposed exactly, using \eqref{cheb-boundary-identity}. For our modified method, we write:
+where the $L_i$'s are (linear) second order differential operators, $u,v$ are the unknown eigenfunctions defined on a domain $\Omega$, and $s$ is the unknown eigenvalue. The problem may of course be formulated exclusively in terms of the eigenfunction $u$, but the factorization will be useful later. The Tau method involves truncating the Chebyshev expansions of $u$ and $v$ and taking the inner product to obtain a matrix system of equations. Unique to the Tau method is that the boudary conditions are imposed exactly, using \eqref{cheb-boundary-identity}. For our modified method, we write:
 $$
 \begin{align*}
 u(x) \approx\sum_{n=0}^{N_{int}+N_{bou}-2} a_n T_n(x),  && v(x) \approx \sum_{n=0}^{N_{int}+N_{bou}-2} b_n T_n(x),
@@ -264,17 +267,17 @@ Its magnitude is useful for identifying spurious eigenvalues, as well as indicat
 
 **Eigenvalue in the interior equation:** 
 
-Consider the fourth order equation
+Consider the fourth order boundary value problem
 $$
 \begin{aligned}
   \begin{cases}
-    & u'''' + Ru'''-su''=0 \\
-    & u(\pm 1) = u'(\pm 1) =0
+    u'''' + Ru'''-su''=0 & x\in [-1,1] \\
+    u(\pm 1) = u'(\pm 1) =0
   \end{cases}
 \end{aligned}
 $$
 
-where $R$ is a real parameter and $s$ is the eigenvalue. For this problem, $B = D_2 + R D_1$ 
+where $R$ is a real parameter and $s$ is the eigenvalue. 
 
 
 ### Example 2 - eigenvalue in the boundary condition:

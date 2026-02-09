@@ -9,11 +9,7 @@ I currently teach mathematics at Nørre Gymnasium (high school level, danish STX
 
 To contact me, send an email to: `valdemar{dot}skou{at}gmail{dot}com`. 
 
-You can also find me on [Github](https://github.com/valdemarskou/) and [LinkedIn](https://www.linkedin.com/in/valdemar-skou-knudsen-38759097/), or have a look at my ~~~
-<a href="/assets/CV (english)-4.pdf">CV.</a>
-~~~
-
-
+You can also find me on [Github](https://github.com/valdemarskou/) and [LinkedIn](https://www.linkedin.com/in/valdemar-skou-knudsen-38759097/).
 <!--
 # How to use Franklin
 
@@ -35,6 +31,7 @@ The [standard markdown syntax](https://github.com/adam-p/markdown-here/wiki/Mark
 * element with _emph_
 
 or code-blocks `inline` or with highlighting (note the `@def hascode = true` in the source to allow [highlight.js](https://highlightjs.org/) to do its job):
+
 
 ```julia
 abstract type Point end
