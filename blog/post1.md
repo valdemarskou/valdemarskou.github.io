@@ -52,15 +52,9 @@ $$
 T_n^{(m)}(\pm 1) = (\pm 1)^{n+m}\prod_{k=0}^{m-1}\frac{n^2-k^2}{2k+1}. \label{cheb-boundary-identity}
 $$
 
-The above formulas are in terms of infinite sums, but in practice, we will work with truncated (finite) modal expansions. The 
+The above formulas are in terms of infinite sums, but in practice, we will work with truncated (finite) modal expansions. 
 
 
-
-
-\input{julia}{/_assets/external/Julia-spectralmethod/chebyshevAlgorithms.jl}
-
-
-test
 ## Fourth order equations and the modified Tau method
 
 We first consider a general fourth order equation of the form: 
@@ -277,13 +271,72 @@ $$
 \end{aligned}
 $$
 
-where $R$ is a real parameter and $s$ is the eigenvalue. 
+where $R$ is a real parameter and $s$ is the eigenvalue. The following code solves the problem using the modified Tau method: \\
+\\
+
+\collaps{Click to expand/retract code}{
+```julia
+B = chebyshevSecondDerivativeMatrix(N_int+2,0) + R*chebyshevFirstDerivativeMatrix(N_int+2,0)
+Q = chebyshevSecondDerivativeMatrix(N_int,2)
+
+B1 = @view B[1:N_int-1,1:N_int+1]
+B2 = @view B[N_int:N_int+1,1:N_int+1]
+B4 = @view B[1:N_int-1,N_int+2:N_int+3]
+B5 = @view B[N_int:N_int+1,N_int+2:N_int+3]
+
+B3 = @view B[N_int+2:N_int+3,1:N_int+1]
+B6 = @view B[N_int+2:N_int+3,N_int+2:N_int+3]
+
+Q1 = @view Q[1:N_int-1,:]
+Q2 = @view Q[N_int:N_int+1,:]
+
+B5inv = inv(B5)
+
+M = B1*Q-B4*B5inv*B2*Q
+N = Q1 - B4*B5inv*Q2
+
+BC = zeros(4,N_int+3)
+BC[1, :] .= (-1).^(0:N_int+2)
+BC[2, :] .= 1
+BC[3, :] .= -(-1).^(0:N_int+2) .* (0:N_int+2).^2
+BC[4, :] .= (0:N_int+2).^2
+
+M1 = @view M[1:N_int-1,1:N_int-1]
+M2 = @view M[1:N_int-1,N_int:N_int+3]
+M3 = @view BC[1:4,1:N_int-1]
+M4 = @view BC[1:4,N_int:N_int+3]
+
+N1 = @view N[1:N_int-1,1:N_int-1]
+N2 = @view N[1:N_int-1,N_int:N_int+3]
+
+M4inv = inv(M4)
+
+values,vectors = eigen(M1-M2*M4inv*M3,N1-N2*M4inv*M3)
+
+vectors = [
+vectors;
+-M4inv*M3 *vectors
+]
+
+# Normalize + sign
+vectors .= vectors ./ sum(abs, vectors; dims=1)
+vectors .*= reshape(sign.(vectors[1, :]), 1, :)
+
+
+# Tau values
+y = -B5inv*B2*Q*vectors + B5inv*Q2*vectors*diagm(values)
+tau = B3*Q*vectors + B6*y - y*diagm(values)
+tau = sum(abs, tau; dims=1)
+
+return values,vectors,tau
+```
+}
+
+
 
 
 ### Example 2 - eigenvalue in the boundary condition:
 
-
-### Example 3 - several unknown variables:
 
 
 
