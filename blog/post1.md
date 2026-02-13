@@ -60,7 +60,7 @@ The above formulas are in terms of infinite sums, but in practice, we will work 
 \input{julia}{/_assets/external/Julia-spectralmethod/chebyshevAlgorithms.jl}
 
 
-
+test
 ## Fourth order equations and the modified Tau method
 
 We first consider a general fourth order equation of the form: 
