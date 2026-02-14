@@ -265,9 +265,9 @@ Its magnitude is useful for identifying spurious eigenvalues, as well as indicat
 
 ## Examples
 
-**Eigenvalue in the interior equation:** 
+We now illustrate the method on two different fourth order problems, with the notable difference being the location of the eigenvalue. \\
 
-Consider the fourth order boundary value problem
+Consider first the fourth order boundary value problem with vanishing boundary conditions:
 $$
 \begin{aligned}
   \begin{cases}
@@ -277,7 +277,7 @@ $$
 \end{aligned}
 $$
 
-where $R$ is a real parameter and $s$ is the eigenvalue. The modified method is implemented, and using a generalized Vandermonde matrix we can visualize the first few (normalized) eigenfunctions at the Chebyshev nodes: \\
+where $R$ is a real parameter and $s$ is the eigenvalue. This is a standard example of an equation where the eigenvalue is located in the differential equation, and as such is present in all the interior modal equations. The modified method is implemented, and using a generalized Vandermonde matrix we can visualize the first few (normalized) eigenfunctions at the Chebyshev nodes: \\
 \fig{/_assets/post1/plot1.svg}
 
 Observe that the boundary conditions are clearly obeyed. Furthermore, the associated Tau magnitudes for each eigenvalue are included, which indicate a good approximation to a true eigenvalue. Increasing the number of interior modes will increase the number of eigenvalues in the spectrum, but not all of them are good approximations to a true eigenvalue. However, no spurious eigenvalues appear at the start of the spectrum for any choice of $R$. For $R=0$ the differential operator is self-adjoint, so all eigenvalues are real, and in this case negative, numbers. In general, the spectrum will be a sequence of conjugate complex numbers with negative real part. This is seen in the following plot, for $R=5$: \\
@@ -288,11 +288,9 @@ We observe from the Tau magnitudes in the following plot that the spectral conve
 
 The same could most likely also be seen from computing the residual of the approximate eigenfunctions. \\
 
-A defect of the method is that a very high number of modes will result in a ill-posed problem, and seemingly no true eigenvalues will appear in the spectrum. However, as the convergence plot shows, there is no reason for selecting such a high number of modes, unless one wishes to obtian a lot of eigenvalues. A possible remedy in this situation could be to use a spectral element method, partitioning the governing domain and therefore using several (low-mode) approximations to the eigenfunction. This is to be investigated further.
+A defect of the method is that a very high number of modes will result in a ill-posed problem, and seemingly no true eigenvalues will appear in the spectrum. However, as the convergence plot shows, there is no reason for selecting such a high number of modes, unless one wishes to obtian a lot of eigenvalues. A possible remedy in this situation could be to use a spectral element method, partitioning the governing domain and therefore using several (low-mode) approximations to the eigenfunction. This is to be investigated further. \\
 
-
-### Example 2 - eigenvalue in the boundary condition:
-Consider now the following equation:
+Consider now the following fourth order boundary value problem:
 $$
 \begin{aligned}
   \begin{cases}
