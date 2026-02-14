@@ -277,13 +277,13 @@ $$
 \end{aligned}
 $$
 
-where $R$ is a real parameter and $s$ is the eigenvalue. The modified method is implemented, and using a generalized Vandermonde matrix we can visualize the first few (normalized) eigenfunctions at the Chebyshev nodes:
+where $R$ is a real parameter and $s$ is the eigenvalue. The modified method is implemented, and using a generalized Vandermonde matrix we can visualize the first few (normalized) eigenfunctions at the Chebyshev nodes: \\
 \fig{/_assets/post1/plot1.svg}
 
-Observe that the boundary conditions are clearly obeyed. Furthermore, the associated Tau magnitudes for each eigenvalue are included, which indicate a good approximation to a true eigenvalue. Increasing the number of interior modes will increase the number of eigenvalues in the spectrum, but not all of them are good approximations to a true eigenvalue. However, no spurious eigenvalues appear at the start of the spectrum for any choice of $R$. For $R=0$ the differential operator is self-adjoint, so all eigenvalues are real, and in this case negative, numbers. In general, the spectrum will be a sequence of conjugate complex numbers with negative real part. This is seen in the following plot, for $R=5$:
+Observe that the boundary conditions are clearly obeyed. Furthermore, the associated Tau magnitudes for each eigenvalue are included, which indicate a good approximation to a true eigenvalue. Increasing the number of interior modes will increase the number of eigenvalues in the spectrum, but not all of them are good approximations to a true eigenvalue. However, no spurious eigenvalues appear at the start of the spectrum for any choice of $R$. For $R=0$ the differential operator is self-adjoint, so all eigenvalues are real, and in this case negative, numbers. In general, the spectrum will be a sequence of conjugate complex numbers with negative real part. This is seen in the following plot, for $R=5$: \\
 \fig{/_assets/post1/plot2.svg}
 
-We observe from the Tau magnitudes in the following plot that the spectral convergence for the eigenvalues is obtained:
+We observe from the Tau magnitudes in the following plot that the spectral convergence for the eigenvalues is obtained: \\
 \fig{/_assets/post1/plot3.svg}
 
 The same could most likely also be seen from computing the residual of the approximate eigenfunctions. \\
@@ -305,7 +305,7 @@ $$
 
 where $R$ is once again a real parameter, and $h$ is the eigenvalue; it's location in a single boundary condition equation means that the analytic spectrum will be a singleton. However, our modified method will solve a very low-rank generalized eigenvalue problem. As such, eigenvalues of infinite magnitude are present in the spectrum, and will have to be removed by filtering. This suggests that solving the equation is ill-suited o be solved as a GEP, and some other method is preferred. It is possible that a constrained linear system can be solved, which would still leverage the effects of our modified method, but this is to be investigated further.\\
 
-Nevertheless, the method can be implemented and the (normalized) eigenfunction can again be visualized at the Chebyshev nodes:
+Nevertheless, the method can be implemented and the (normalized) eigenfunction can again be visualized at the Chebyshev nodes: \\
 \fig{/_assets/post1/plot4.svg}
 
 Observe that the rightmost boundary condition is clearly obeyed in both examples. Furthermore, the associated Tau magnitudes are seen to be extremely small, which could indicate a good approximation to the true eigenvalue. Further investigation of the Tau equation reveal only a small number of non-zero entries, which diminishes the information we can derive from them in this type of problem. To remedy this, one could compute the residual of the approximate eigenfunction, although we omit this here. We can however see a similar exponential convergence in the Tau magnitudes: \\
