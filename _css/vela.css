@@ -47,12 +47,13 @@ table {
 }
 
 html {
-  font-family: Garamond;
+  font-family: Garamond, sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
+  font-family: Garamond, sans-serif;
   margin: 0;
 }
 
