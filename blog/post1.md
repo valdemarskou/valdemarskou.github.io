@@ -12,11 +12,17 @@ tags = ["syntax", "code", "image"]
 
 
 
-The Cheyshev Tau method is a powerful tool for the numerical solution of eigenvalue boundary value problems. However, when applied to problems of order $\geq 2$, spurious eigenvalues may appear. Largely following \cite{gardner88}, we study and implement a matrix factorization technique that eliminates the spurious values, while still preserving the desired spectral convergence of the resulting numerical scheme. We apply the technique to several examples; notably one where the eigenvalue is located in the boundary. The code developed for this post is found in the following [spectral methods repository](https://github.com/valdemarskou/Julia-spectralmethod).
+The Cheyshev Tau method is a powerful tool for the numerical solution of eigenvalue boundary value problems. In particular, the so-called spectral convergence is faster than traditional FDM or FEM techniques by several orders of magnitude. However, when applied to problems of order $\geq 2$, spurious eigenvalues may appear (\cite{dawkins98}). \\
+
+In this post we summarize a matrix factorization technique to modify the usual Tau method in order to eliminate the spurious values (\cite{gardner88}). The desired spectral convergence is preserved, which we verify with several test problems; notably one where the eigenvalue is located at the boundary. We also discuss using the Tau values to identify spurious or poor approximations to true eigenvalues. \\
+
+The modified method is exceedingly useful for fixing a known issue with the Tau method. In fact, it can be shown to be equivalent to the modified Galerkin method where trial functions that obey boundary conditions are explicitely constructed. As this method requires less direct calculations, it seems to be the preferred choice. \\
+
+The code for the post is written in Julia, and can be found in my [spectral methods repository](https://github.com/valdemarskou/Julia-spectralmethod), which is to be developed into a package in the near future.
 
 ## Chebyshev approximation
 
-Some background on Chebyshev approxiation is required (see \cite{johnson96} for further details). The Chebyshev polynomial of order $k$ is given by
+Some background on Chebyshev approxiation is required (\cite{johnson96}). The Chebyshev polynomial of order $k$ is given by
 $$
 \begin{align*}
 T_k(x) = \arccos(\cos(x)),
@@ -265,86 +271,60 @@ Consider the fourth order boundary value problem
 $$
 \begin{aligned}
   \begin{cases}
-    u'''' + Ru'''-su''=0 & x\in [-1,1] \\
+    u'''' + Ru'''-su''=0, & x\in (-1,1) \\
     u(\pm 1) = u'(\pm 1) =0
   \end{cases}
 \end{aligned}
 $$
 
-where $R$ is a real parameter and $s$ is the eigenvalue. The following code solves the problem using the modified Tau method: \\
-\\
+where $R$ is a real parameter and $s$ is the eigenvalue. The modified method is implemented, and using a generalized Vandermonde matrix we can visualize the first few (normalized) eigenfunctions at the Chebyshev nodes:
+\fig{/_assets/post1/plot1.svg}
 
-\collaps{Click to expand/retract code}{
-```julia
-B = chebyshevSecondDerivativeMatrix(N_int+2,0) + R*chebyshevFirstDerivativeMatrix(N_int+2,0)
-Q = chebyshevSecondDerivativeMatrix(N_int,2)
+Observe that the boundary conditions are clearly obeyed. Furthermore, the associated Tau magnitudes for each eigenvalue are included, which indicate a good approximation to a true eigenvalue. Increasing the number of interior modes will increase the number of eigenvalues in the spectrum, but not all of them are good approximations to a true eigenvalue. However, no spurious eigenvalues appear at the start of the spectrum for any choice of $R$. For $R=0$ the differential operator is self-adjoint, so all eigenvalues are real, and in this case negative, numbers. In general, the spectrum will be a sequence of conjugate complex numbers with negative real part. This is seen in the following plot, for $R=5$:
+\fig{/_assets/post1/plot2.svg}
 
-B1 = @view B[1:N_int-1,1:N_int+1]
-B2 = @view B[N_int:N_int+1,1:N_int+1]
-B4 = @view B[1:N_int-1,N_int+2:N_int+3]
-B5 = @view B[N_int:N_int+1,N_int+2:N_int+3]
+We observe from the Tau magnitudes in the following plot that the spectral convergence for the eigenvalues is obtained:
+\fig{/_assets/post1/plot3.svg}
 
-B3 = @view B[N_int+2:N_int+3,1:N_int+1]
-B6 = @view B[N_int+2:N_int+3,N_int+2:N_int+3]
+The same could most likely also be seen from computing the residual of the approximate eigenfunctions. \\
 
-Q1 = @view Q[1:N_int-1,:]
-Q2 = @view Q[N_int:N_int+1,:]
-
-B5inv = inv(B5)
-
-M = B1*Q-B4*B5inv*B2*Q
-N = Q1 - B4*B5inv*Q2
-
-BC = zeros(4,N_int+3)
-BC[1, :] .= (-1).^(0:N_int+2)
-BC[2, :] .= 1
-BC[3, :] .= -(-1).^(0:N_int+2) .* (0:N_int+2).^2
-BC[4, :] .= (0:N_int+2).^2
-
-M1 = @view M[1:N_int-1,1:N_int-1]
-M2 = @view M[1:N_int-1,N_int:N_int+3]
-M3 = @view BC[1:4,1:N_int-1]
-M4 = @view BC[1:4,N_int:N_int+3]
-
-N1 = @view N[1:N_int-1,1:N_int-1]
-N2 = @view N[1:N_int-1,N_int:N_int+3]
-
-M4inv = inv(M4)
-
-values,vectors = eigen(M1-M2*M4inv*M3,N1-N2*M4inv*M3)
-
-vectors = [
-vectors;
--M4inv*M3 *vectors
-]
-
-# Normalize + sign
-vectors .= vectors ./ sum(abs, vectors; dims=1)
-vectors .*= reshape(sign.(vectors[1, :]), 1, :)
-
-
-# Tau values
-y = -B5inv*B2*Q*vectors + B5inv*Q2*vectors*diagm(values)
-tau = B3*Q*vectors + B6*y - y*diagm(values)
-tau = sum(abs, tau; dims=1)
-
-return values,vectors,tau
-```
-}
-
-
+A defect of the method is that a very high number of modes will result in a ill-posed problem, and seemingly no true eigenvalues will appear in the spectrum. However, as the convergence plot shows, there is no reason for selecting such a high number of modes, unless one wishes to obtian a lot of eigenvalues. A possible remedy in this situation could be to use a spectral element method, partitioning the governing domain and therefore using several (low-mode) approximations to the eigenfunction. This is to be investigated further.
 
 
 ### Example 2 - eigenvalue in the boundary condition:
+Consider now the following equation:
+$$
+\begin{aligned}
+  \begin{cases}
+    u'''' -u'' + Ru=0, \qquad x\in (-1,1) \\
+    u(1) = u'(1) =0 \\
+    u'(-1) = u''(-1) + h\cdot u(-1)=0
+  \end{cases}
+\end{aligned}
+$$
 
+where $R$ is once again a real parameter, and $h$ is the eigenvalue; it's location in a single boundary condition equation means that the analytic spectrum will be a singleton. However, our modified method will solve a very low-rank generalized eigenvalue problem. As such, eigenvalues of infinite magnitude are present in the spectrum, and will have to be removed by filtering. This suggests that solving the equation is ill-suited o be solved as a GEP, and some other method is preferred. It is possible that a constrained linear system can be solved, which would still leverage the effects of our modified method, but this is to be investigated further.\\
 
+Nevertheless, the method can be implemented and the (normalized) eigenfunction can again be visualized at the Chebyshev nodes:
+\fig{/_assets/post1/plot4.svg}
 
+Observe that the rightmost boundary condition is clearly obeyed in both examples. Furthermore, the associated Tau magnitudes are seen to be extremely small, which could indicate a good approximation to the true eigenvalue. Further investigation of the Tau equation reveal only a small number of non-zero entries, which diminishes the information we can derive from them in this type of problem. To remedy this, one could compute the residual of the approximate eigenfunction, although we omit this here. We can however see a similar exponential convergence in the Tau magnitudes: \\
+\fig{/_assets/post1/plot5.svg}
+
+This plot indicates that the approximation converges (to *something*, but most likely the true solution to the equation).
+
+## Conclusion & future extensions
+
+The modified Chebyshev Tau method was introduced and demonstrated to be a definite improvement of the standard Tau method when solving eigenvalue problems. So far, the implementations in the [spectral methods repository](https://github.com/valdemarskou/Julia-spectralmethod) is limited to homogenous problems with constant coefficients, but nonconstant coefficients are to be implemented in the near future. Nonlinear problems is a separate issue, that I am unsure how to tackle with this particular method. A first order linear approximation seems wasteful to pair with this modified method, since all the computation and precision gains would likely go to waste. \\
+
+It is of great interest to implement a spectral element method, where this numerical scheme is to be used in each element. Generalizing to $2D$ and time-dependent problems is also an interesting direction to dedicate further effort. Overall this is a great first step in developing a suite for handling BVPs that appear in mathematical modelling.
 
 
 ### References
 
-* \biblabel{gardner88}{Gardner et al.} **Gardner**, **Trogdon** and **Douglas**, [A Modified Tau Spectral Method That Eliminates Spurious Eigenvalues](https://www.sciencedirect.com/science/article/abs/pii/0021999189900934), 1988.
+* \biblabel{gardner88}{Gardner et al.} **Gardner**, **Trogdon** and **Douglass**, [A Modified Tau Spectral Method That Eliminates Spurious Eigenvalues](https://www.sciencedirect.com/science/article/abs/pii/0021999189900934), 1988.
 * \biblabel{johnson96}{Johnson} **Duane Johnson**, [Chebyshev Polynomials in the Spectral Tau Method and Applications to Eigenvalue Problems](https://ntrs.nasa.gov/api/citations/19960029104/downloads/19960029104.pdf), 1996.
+* \biblabel{dawkins98}{Dawkins et al.} **Dawkins**, **Dunbar** and **Douglass**, [The Origin and Nature of Spurious Eigenvalues in the Spectral Tau Method](https://www.sciencedirect.com/science/article/abs/pii/S0021999198960958), 1998.
 <!--
 
 # More goodies

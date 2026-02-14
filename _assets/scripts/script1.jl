@@ -9,12 +9,11 @@ let
     values,vectors,tau = fourthOrderTestProblemOneSolver(N,R)
     xs = chebyshevGaussLobattoNodesAndWeights(N + 2)[1]
 
-    # --- BEGIN SHOW ---
     V = chebyshevVandermondeMatrix(N+2)
     ys1 = V*vectors[:,end]
     ys2 = V*vectors[:,end-1]
     ys3 = V*vectors[:,end-2]
-    # --- END SHOW ---
+
 
 
     fig = Figure()

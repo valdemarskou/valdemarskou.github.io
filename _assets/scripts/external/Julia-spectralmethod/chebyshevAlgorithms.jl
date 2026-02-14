@@ -1,6 +1,5 @@
-using Pkg
+#using Pkg
 using LinearAlgebra
-#using SparseArrays
 
 function chebyshevPolynomial(k::Int,x::Float64)
 
